@@ -2,8 +2,4 @@
 
 button {
   cursor: pointer;
-  background-color: rgb(243, 243, 243);
-  &:hover {
-    background-color: rgb(229, 229, 229);
-  }
 }
