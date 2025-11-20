@@ -1,8 +1,15 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
+import { ref } from "vue";
 
+const isMenuOpen = ref(false);
+//TODO 完善打开逻辑
 const openStartMenu = () => {
-  console.log("Start Menu Opened");
+  try {
+    isMenuOpen.value = !isMenuOpen.value;
+  } catch (err) {
+    console.error("Failed to open start menu:", err);
+  }
 };
 </script>
 <template>
@@ -17,6 +24,7 @@ const openStartMenu = () => {
     <div class="reks-misson-bar w-full h-10 relative">
       <!-- 开始按钮 -->
       <button
+        title="开始"
         @click="openStartMenu"
         class="start flex justify-center items-center w-[50px] overflow-hidden"
       >
@@ -24,9 +32,14 @@ const openStartMenu = () => {
           class="w-full h-full start-icon"
           icon="streamline-logos:microsoft-windows-logo-1-solid"
         />
-        <!-- <img src="/vista.png" class="w-full h-full start-icon" alt="vista"> -->
+        <!-- 备选vista官方图标 <img src="/vista.png" class="w-full h-full start-icon" alt="vista"> -->
       </button>
-
+      <Transition name="fade">
+        <div class="start-menu absolute bottom-10" v-show="isMenuOpen">
+          <!-- TODO 开始菜单内容 -->
+          开始菜单
+        </div>
+      </Transition>
       <div class="search-bar"></div>
       <!-- TODO 显示左下角label,search-bar,图标，已经时间，声音等图案 -->
     </div>
@@ -34,6 +47,7 @@ const openStartMenu = () => {
 </template>
 <style lang="scss" scoped>
 .start {
+  transition: all 0.2s ease-in-out;
   border-radius: 50%;
   aspect-ratio: 1/1;
   overflow: visible;
@@ -51,15 +65,17 @@ const openStartMenu = () => {
     rgba(0, 40, 71, 1) 83.333%,
     rgba(0, 1, 22, 1) 100%
   );
-  backdrop-filter: blur(40px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25),
-    /* 投影*/ inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  /* 内高光 */
+  &:hover {
+    filter: brightness(1.05);
+  }
+  backdrop-filter: blur(50px);
   .start-icon {
+    transition: all 0.2s ease-in-out;
     padding: 10px;
-    color: #ffffffea;
+    color: #ffffffd5;
     &:hover {
       color: #ffffff;
+      transform: scale(1.05);
     }
     filter: drop-shadow(0 4.5px 0.5px rgba(0, 0, 0, 0.18));
   }
