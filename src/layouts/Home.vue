@@ -16,16 +16,17 @@ const openStartMenu = () => {
         console.error("Failed to open start menu:", err);
     }
 };
+
 </script>
 <template>
     <div class="reks-screen flex flex-col w-full h-screen">
-        <div class="reks-desktop w-full grow overflow-hidden">
+        <div class="reks-desktop w-full flex-1 overflow-hidden">
             <!-- 屏幕 高1032px -->
 
 
             <!-- TODO 设置背景壁纸，图标，窗口等 -->
             <div class="desktop-bg w-full h-full border border-black/10">
-                <!-- <img class="bg-img w-full h-full object-cover" src="/blue.png" alt="blue"> -->
+                <img class="bg-img w-full h-full object-cover" src="/blue.png" alt="blue">
             </div>
         </div>
         <Transition name="fade">
