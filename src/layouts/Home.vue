@@ -32,7 +32,7 @@ const openStartMenu = () => {
             <div class="start-menu box absolute border border-black w-[400px] h-[500px] flex" v-show="isMenuOpen">
                 <div class="left-part w-[200px] flex flex-col justify-center items-center box-border">
                     <!-- 应用列表（容器），内部项使用 v-for -->
-                    <div class="menu-list mt-2 ml-4 p-2 w-full overflow-auto flex-1 bg-white rounded box-border">
+                    <div class="menu-list mt-2 ml-4 p-1 w-full overflow-auto flex-1 bg-white rounded box-border">
                         <div class="menu-card w-full flex items-center gap-3 pl-2 pr-2 py-2 hover:bg-amber-100"
                             v-for="app in appList" :key="app.name">
                             <Icon :icon="app.icon" width="35" height="35" style="color: #194317" />
