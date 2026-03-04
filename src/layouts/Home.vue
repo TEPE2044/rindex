@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { useDraggable } from '@vueuse/core'
+import { ref, useTemplateRef  } from "vue";
 
 const appList = [
     { icon: 'logos:microsoft-edge', name: 'Edge' },
@@ -17,16 +18,22 @@ const openStartMenu = () => {
     }
 };
 
+const aapp = useTemplateRef<HTMLElement>('aapp');
+
+const { style } = useDraggable(aapp, {
+  initialValue: { x: 40, y: 40 },
+})
 </script>
 <template>
     <div class="reks-screen flex flex-col w-full h-screen">
         <div class="reks-desktop w-full flex-1 overflow-hidden">
-            <!-- 屏幕 高1032px -->
-
-
-            <!-- TODO 设置背景壁纸，图标，窗口等 -->
+            <!-- 屏幕 高1032px -->        <!-- TODO 设置背景壁纸，图标，窗口等 -->
             <div class="desktop-bg w-full h-full border border-black/10">
                 <img class="bg-img w-full h-full object-cover" src="/blue.png" alt="blue">
+            </div>
+            
+            <div ref="aapp" style="position: fixed;" class="aapp"> 
+                <Icon v-for="app in appList" :key="app.name" :icon="app.icon" width="35" height="35" style="color: #194317" />
             </div>
         </div>
         <Transition name="fade">
@@ -64,6 +71,16 @@ const openStartMenu = () => {
     </div>
 </template>
 <style lang="scss" scoped>
+.reks-desktop{
+    .desktop-bg{
+        filter:blur(1px) brightness(0.85)
+    }
+    .aapp{
+        width: 35px;
+        height: 35px;
+    }
+}
+$left-offset:57rem;
 .start {
     transition: all 0.2s ease-in-out;
     border-radius: 50%;
@@ -71,7 +88,7 @@ const openStartMenu = () => {
     overflow: visible;
     position: absolute;
     bottom: 2px;
-    left: 0.5rem;
+    left: $left-offset;
     /* https://grabient.com/HQJgnArANKk+1gGYIBYZKQdg0kMA2ARiJggA5yywCpVgwskojhyQqlgtig?style=linearGradient&steps=7&angle=90 */
     background: linear-gradient(90deg,
             rgba(164, 116, 81, 1) 0%,
@@ -106,8 +123,8 @@ const openStartMenu = () => {
     background: #0f0f0fb0;
     box-shadow: #000 4px 5px 8px;
     border-radius: 5px;
-    bottom: 35px;
-
+    bottom: 60px;
+    left: calc($left-offset - 11rem);
     /* 左侧面板固定宽度，子元素使用 w-full + box-border 保持等宽 */
     .left-part {
         width: 200px;
